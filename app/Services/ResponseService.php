@@ -74,4 +74,10 @@ class ResponseService
         $response = self::responseData(true, 200, ['url' => $route], "Success");
         return response()->json($response, 200);
     }
+
+
+    public static function  sendUnauthorized($message = null)
+    {
+        return self::sendResponseError(null, Response::HTTP_UNAUTHORIZED, $message);
+    }
 }
