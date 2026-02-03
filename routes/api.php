@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [LoginController::class, 'login']);
 
 });
+
+// orders 
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource('orders', OrderController::class);
+});
+
