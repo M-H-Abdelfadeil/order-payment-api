@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Contracts\AppEnum;
 use App\Traits\EnumHelpers;
 
-enum PaymentMethod: string implements AppEnum
+enum PaymentMethodEnum: string implements AppEnum
 {
     use EnumHelpers;
     
