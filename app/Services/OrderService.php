@@ -27,7 +27,7 @@ class OrderService
     }
 
    
-    public function getUserOrders(int $userId, array $filters = []): Collection
+    public function getUserOrders(int $userId, array $filters = [] , int $perPage = 15): LengthAwarePaginator
     {
         return $this->orderRepository->getByUser($userId, $filters);
     }
@@ -50,6 +50,18 @@ class OrderService
 
         if (!$order) {
             throw new OrderException("Order {$orderNumber} not found", 404);
+        }
+
+        return $order;
+    }
+
+
+     public function findByUser(int $userId, int $order_id): Order
+    {
+        $order = $this->orderRepository->findByUser($userId , $order_id);
+
+        if (!$order) {
+            throw new OrderException("Order {$order_id} not found", 404);
         }
 
         return $order;

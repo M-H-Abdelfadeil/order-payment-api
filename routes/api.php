@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +33,18 @@ Route::group(['prefix' => 'auth'], function () {
 
 });
 
-// orders 
+// authenticated routes 
 
 Route::group(['middleware' => 'auth:api'], function () {
+
+    // order 
     Route::apiResource('orders', OrderController::class);
+
+    // payments
+    Route::group(['prefix' => 'payments'], function () {
+        Route::post('process/{order}', [PaymentController::class, 'process']);
+    });
+
+
 });
 

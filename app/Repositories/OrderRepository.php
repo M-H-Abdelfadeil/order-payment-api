@@ -43,14 +43,23 @@ class OrderRepository implements OrderRepositoryInterface
             ->first();
     }
 
-    public function getByUser(int $userId, array $filters = []): Collection
+
+    public function findByUser(int $userId, int $orderId): ?Order
+    {
+        return Order::with(['user', 'items', 'payments'])
+            ->where('user_id', $userId)
+            ->where('id', $orderId)
+            ->first();
+    }
+
+    public function getByUser(int $userId, array $filters = [] , int $perPage = 15): LengthAwarePaginator
     {
         $query = Order::with(['items', 'payments'])
             ->where('user_id', $userId);
 
         $this->applyFilters($query, $filters);
 
-        return $query->latest()->get();
+        return $query->latest()->paginate($perPage);
     }
 
 

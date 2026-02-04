@@ -33,7 +33,7 @@ class OrderController extends Controller
 
             $perPage = $request->input('per_page', 15);
 
-            $orders = $this->orderService->getAllOrders($filters, $perPage);
+            $orders = $this->orderService->getUserOrders( auth()->id(), $filters, $perPage);
 
             return ResponseService::sendResponseSuccess(OrderResource::collection($orders)->response()->getData());
 
@@ -59,7 +59,7 @@ class OrderController extends Controller
     public function show(int $id): JsonResponse
     {
         try {
-            $order = $this->orderService->findOrder($id);
+            $order = $this->orderService->findByUser(auth()->id(), $id) ;
 
             $this->orderService->verifyOwnership($order, auth()->id());
 

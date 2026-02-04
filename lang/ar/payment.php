@@ -8,5 +8,5 @@ return [
     "Refunded" => "مسترد",
     "Credit Card" => "بطاقة ائتمان",
     "PayPal" => "باي بال",
-    "Bank Transfer" => "نقل بنكي",
+    "Bank Transfer" => "تحويل بنكي",
 ];

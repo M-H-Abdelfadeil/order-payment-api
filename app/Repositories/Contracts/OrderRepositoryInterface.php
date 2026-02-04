@@ -18,7 +18,9 @@ interface OrderRepositoryInterface
 
     public function findByOrderNumber(string $orderNumber): ?Order;
 
-    public function getByUser(int $userId, array $filters = []): Collection;
+    public function findByUser(int $userId, int $orderId): ?Order;
+
+    public function getByUser(int $userId, array $filters = [] , int $perPage = 15): LengthAwarePaginator;
 
     public function create(array $data): Order;
 
