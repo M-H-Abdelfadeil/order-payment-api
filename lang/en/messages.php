@@ -1,0 +1,27 @@
+<?php
+
+return array (
+  'User registered successfully' => 'User registered successfully',
+  'User registration failed' => 'User registration failed',
+  'Incorrect email or password' => 'Incorrect email or password',
+  'Login successful' => 'Login successful',
+  'Order with ID :id not found.' => 'Order with ID :id not found.',
+  'Order cannot be deleted. Reason: :reason' => 'Order cannot be deleted. Reason: :reason',
+  'Order has associated payments' => 'Order has associated payments',
+  'Order with status :status cannot be paid. Only confirmed orders can be paid.' => 'Order with status :status cannot be paid. Only confirmed orders can be paid.',
+  'You are not authorized to access this order.' => 'You are not authorized to access this order.',
+  'Cannot change order status from :from to :to.' => 'Cannot change order status from :from to :to.',
+  'Order created successfully' => 'Order created successfully',
+  'Order updated successfully' => 'Order updated successfully',
+  'Order deleted successfully' => 'Order deleted successfully',
+  'Payment with ID :id not found.' => 'Payment with ID :id not found.',
+  'Payment processing failed: :reason' => 'Payment processing failed: :reason',
+  'Invalid payment method: :method' => 'Invalid payment method: :method',
+  'Payment gateway error: :message' => 'Payment gateway error: :message',
+  'Payment amount is insufficient to cover the order total.' => 'Payment amount is insufficient to cover the order total.',
+  'Duplicate payment for this order exists.' => 'Duplicate payment for this order exists.',
+  'Unauthorized access to payment.' => 'Unauthorized access to payment.',
+  'Payment refund failed: :reason' => 'Payment refund failed: :reason',
+  'Order must be confirmed before payment.' => 'Order must be confirmed before payment.',
+  'Payment processed successfully' => 'Payment processed successfully',
+);
