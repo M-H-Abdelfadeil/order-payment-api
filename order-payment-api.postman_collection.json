@@ -1,0 +1,1005 @@
+{
+  "info": {
+    "_postman_id": "b5626820-461d-4456-aac1-f80bd50bf40d",
+    "name": "order-payment-api",
+    "description": "**Available Variables:**\n\n- **`BASE_URL`** – The base URL for the API server.\n    \n- **`TOKEN`** – Authentication token (JWT or Bearer Token).\n    \n- **`LANG`** – Response language (available values: `ar`, `en`).\n    \n    - If left empty, the default value from the `APP_LOCALE` environment variable will be used.\n        \n\n**Required Headers:**\n\n- **`x-lang`** – Used to control the response language (available values: `ar`, `en`).\n    \n    - Can be used instead of the `LANG` variable, depending on the API configuration.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40132209"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let responseJson = pm.response.json();\r",
+                  "console.log(responseJson.data.access_token);\r",
+                  "pm.environment.set(\"TOKEN\", responseJson.data.access_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Mahmoud Abdelfadil\", // Required | String | Max 255 characters\r\n  \"email\": \"mahmoud@example.com\", // Required | Must be a valid email | Max 255 characters \r\n  \"password\": \"Password@123\", // Required | String | Min 8 characters | Must contain at least one lowercase, one uppercase, one number, and one special character\r\n  \"password_confirmation\": \"Password@123\", // Required | Must match the password field\r\n  \"phone\": \"+201026010475\", // Optional | String | Max 20 characters\r\n  \"address\": \"123 Main Street, Cairo, Egypt\" // Optional | String | Max 500 characters\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "validation error (422)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n//   \"name\": \"Mahmoud Abdelfadil\", // Required | String | Max 255 characters\r\n  \"email\": \"mahmoud@example.com\", // Required | Must be a valid email | Max 255 characters \r\n  \"password\": \"Password@123\", // Required | String | Min 8 characters | Must contain at least one lowercase, one uppercase, one number, and one special character\r\n  \"password_confirmation\": \"Password@123\", // Required | Must match the password field\r\n  \"phone\": \"+201026010475\", // Optional | String | Max 20 characters\r\n  \"address\": \"123 Main Street, Cairo, Egypt\" // Optional | String | Max 500 characters\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/auth/register",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:38:36 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Name is required\",\n    \"errors\": {\n        \"name\": [\n            \"Name is required\"\n        ]\n    }\n}"
+            },
+            {
+              "name": "success (201)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mahmoud Abdelfadil\", // Required | String | Max 255 characters\r\n  \"email\": \"mahmoud@example.com\", // Required | Must be a valid email | Max 255 characters \r\n  \"password\": \"Password@123\", // Required | String | Min 8 characters | Must contain at least one lowercase, one uppercase, one number, and one special character\r\n  \"password_confirmation\": \"Password@123\", // Required | Must match the password field\r\n  \"phone\": \"+201026010475\", // Optional | String | Max 20 characters\r\n  \"address\": \"123 Main Street, Cairo, Egypt\" // Optional | String | Max 500 characters\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/auth/register",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:39:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": true,\n    \"status_code\": 201,\n    \"data\": {\n        \"user\": {\n            \"id\": 11,\n            \"name\": \"Mahmoud Abdelfadil\",\n            \"email\": \"mahmoud@example.com\",\n            \"phone\": \"+201026010475\",\n            \"address\": \"123 Main Street, Cairo, Egypt\",\n            \"is_verified\": false\n        },\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvcmVnaXN0ZXIiLCJpYXQiOjE3NzAyMDg3NTIsImV4cCI6MTc3MDIxMjM1MywibmJmIjoxNzcwMjA4NzUzLCJqdGkiOiJvellFWDNqYVY2NTM0YVA5Iiwic3ViIjoiMTEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.UbWSv1MrXh6b0u_oHNj1U7IGp9ZtEVQqK8NhCkzMYXE\",\n        \"token_type\": \"bearer\"\n    },\n    \"message\": \"User registered successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let responseJson = pm.response.json();\r",
+                  "console.log(responseJson.data.access_token);\r",
+                  "pm.environment.set(\"TOKEN\", responseJson.data.access_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"lakin.elouise@example.org\", // Required | Must be a valid email\r\n    \"password\": \"Password@123\" // Required | String\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success (200)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"lakin.elouise@example.org\", // Required | Must be a valid email\r\n    \"password\": \"Password@123\" // Required | String\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/auth/login",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:40:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": true,\n    \"status_code\": 200,\n    \"data\": {\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"Dr. Cullen Brekke\",\n            \"email\": \"lakin.elouise@example.org\",\n            \"phone\": \"+1-208-362-9417\",\n            \"address\": \"2021 Lisa Locks\\nEast Laverna, NV 94394\",\n            \"is_verified\": false\n        },\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3NzAyMDg4MDEsImV4cCI6MTc3MDIxMjQwMSwibmJmIjoxNzcwMjA4ODAxLCJqdGkiOiJzRHB6Z0JjOWhBQnFtSGhuIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.dzNPRauJ0mfZiMWlqjoBV1vpy-6HqNP9JKY3v4ThefE\",\n        \"token_type\": \"bearer\"\n    },\n    \"message\": \"Login successful\"\n}"
+            },
+            {
+              "name": "Incorrect email or password (401)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"lakin.elouisew@example.org\", // Required | Must be a valid email\r\n    \"password\": \"Password@123\" // Required | String\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/auth/login",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:40:21 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": false,\n    \"status_code\": 401,\n    \"data\": null,\n    \"message\": \"Incorrect email or password\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"product_name\": \"Wireless Mouse\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"WM-001\", // Optional | String | Max 100 characters\r\n      \"quantity\": 2, // Required | Integer | Min 1\r\n      \"price\": 25.5, // Required | Numeric | Min 0\r\n      \"notes\": \"Black color preferred\" // Optional | String | Max 500 characters\r\n    },\r\n    {\r\n      \"product_name\": \"Mechanical Keyboard\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"MK-204\", // Optional | String | Max 100 characters\r\n      \"quantity\": 1,\r\n      \"price\": 120,\r\n      \"notes\": null // Optional | String | Max 500 characters\r\n    }\r\n  ],\r\n  \"tax\": 15, // Optional | Numeric | Min 0\r\n  \"discount\": 10, // Optional | Numeric | Min 0\r\n  \"status\": \"pending\", // Optional | Must be a valid value from OrderStatusEnum\r\n  \"notes\": \"Please deliver between 10 AM and 2 PM\" // Optional | String | Max 1000 characters\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Unauthenticated (401)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"product_name\": \"Wireless Mouse\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"WM-001\", // Optional | String | Max 100 characters\r\n      \"quantity\": 2, // Required | Integer | Min 1\r\n      \"price\": 25.5, // Required | Numeric | Min 0\r\n      \"notes\": \"Black color preferred\" // Optional | String | Max 500 characters\r\n    },\r\n    {\r\n      \"product_name\": \"Mechanical Keyboard\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"MK-204\", // Optional | String | Max 100 characters\r\n      \"quantity\": 1,\r\n      \"price\": 120,\r\n      \"notes\": null // Optional | String | Max 500 characters\r\n    }\r\n  ],\r\n  \"tax\": 15, // Optional | Numeric | Min 0\r\n  \"discount\": 10, // Optional | Numeric | Min 0\r\n  \"status\": \"pending\", // Optional | Must be a valid value from OrderStatusEnum\r\n  \"notes\": \"Please deliver between 10 AM and 2 PM\" // Optional | String | Max 1000 characters\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/orders",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:40:56 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+            },
+            {
+              "name": "success (201)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"product_name\": \"Wireless Mouse\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"WM-001\", // Optional | String | Max 100 characters\r\n      \"quantity\": 2, // Required | Integer | Min 1\r\n      \"price\": 25.5, // Required | Numeric | Min 0\r\n      \"notes\": \"Black color preferred\" // Optional | String | Max 500 characters\r\n    },\r\n    {\r\n      \"product_name\": \"Mechanical Keyboard\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"MK-204\", // Optional | String | Max 100 characters\r\n      \"quantity\": 1,\r\n      \"price\": 120,\r\n      \"notes\": null // Optional | String | Max 500 characters\r\n    }\r\n  ],\r\n  \"tax\": 15, // Optional | Numeric | Min 0\r\n  \"discount\": 10, // Optional | Numeric | Min 0\r\n  \"status\": \"pending\", // Optional | Must be a valid value from OrderStatusEnum\r\n  \"notes\": \"Please deliver between 10 AM and 2 PM\" // Optional | String | Max 1000 characters\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/orders",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:41:36 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": true,\n    \"status_code\": 201,\n    \"data\": {\n        \"id\": 13,\n        \"order_number\": \"ORD-20260204-00013\",\n        \"status\": \"pending\",\n        \"subtotal\": \"171.00\",\n        \"tax\": \"15.00\",\n        \"discount\": \"10.00\",\n        \"total_amount\": \"176.00\",\n        \"notes\": \"Please deliver between 10 AM and 2 PM\",\n        \"created_at\": \"2026-02-04T12:41:36.000000Z\"\n    },\n    \"message\": \"Order created successfully\"\n}"
+            },
+            {
+              "name": "validation error (422)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"product_name\": \"Wireless Mouse\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"WM-001\", // Optional | String | Max 100 characters\r\n      \"quantity\": 2, // Required | Integer | Min 1\r\n      \"price\": 25.5, // Required | Numeric | Min 0\r\n      \"notes\": \"Black color preferred\" // Optional | String | Max 500 characters\r\n    },\r\n    {\r\n      \"product_name\": \"Mechanical Keyboard\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"MK-204\", // Optional | String | Max 100 characters\r\n      \"quantity\": 1,\r\n      \"price\": 120,\r\n      \"notes\": null // Optional | String | Max 500 characters\r\n    }\r\n  ],\r\n  \"tax\": 15, // Optional | Numeric | Min 0\r\n  \"discount\": 10, // Optional | Numeric | Min 0\r\n  \"status\": \"pending\", // Optional | Must be a valid value from OrderStatusEnum\r\n  \"notes\": \"Please deliver between 10 AM and 2 PM\" // Optional | String | Max 1000 characters\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/orders",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Unprocessable Content",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Feb 2026 12:42:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "58"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Order must have at least one item\",\n    \"errors\": {\n        \"items\": [\n            \"Order must have at least one item\"\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"product_name\": \"Wireless Mouse\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"WM-001\", // Optional | String | Max 100 characters\r\n      \"quantity\": 2, // Required | Integer | Min 1\r\n      \"price\": 25.5, // Required | Numeric | Min 0\r\n      \"notes\": \"Black color preferred\" // Optional | String | Max 500 characters\r\n    },\r\n    {\r\n      \"product_name\": \"Mechanical Keyboard\", // Required | String | Max 255 characters\r\n      \"product_sku\": \"MK-204\", // Optional | String | Max 100 characters\r\n      \"quantity\": 1,\r\n      \"price\": 120,\r\n      \"notes\": null // Optional | String | Max 500 characters\r\n    }\r\n  ],\r\n  \"tax\": 15, // Optional | Numeric | Min 0\r\n  \"discount\": 10, // Optional | Numeric | Min 0\r\n  \"status\": \"pending\", // Optional | Must be a valid value from OrderStatusEnum\r\n  \"notes\": \"Please deliver between 10 AM and 2 PM\" // Optional | String | Max 1000 characters\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/:order_id",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                ":order_id"
+              ],
+              "variable": [
+                {
+                  "key": "order_id",
+                  "value": "11"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update Copy",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/:order_id",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                ":order_id"
+              ],
+              "variable": [
+                {
+                  "key": "order_id",
+                  "value": "11"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "index (all order)",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "show (order details)",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/:order_id",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                ":order_id"
+              ],
+              "variable": [
+                {
+                  "key": "order_id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "process",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-lang",
+                "value": "{{LANG}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"payment_method\": \"credit_card\", // Required | Must be one of: credit_card, paypal, bank_transfer\r\n  \"amount\": 150.75 // Optional | Numeric | Min 0.01 | Required only in some cases\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/payments/process/:order_id",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "payments",
+                "process",
+                ":order_id"
+              ],
+              "variable": [
+                {
+                  "key": "order_id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": ""
+    },
+    {
+      "key": "TOKEN",
+      "value": ""
+    },
+    {
+      "key": "LANG",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
